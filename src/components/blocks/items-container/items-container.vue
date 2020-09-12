@@ -2,24 +2,33 @@
   <div>
     <div class="items-list-wrapper">
       <items-list
-        :sortOption="openItemsSortOption"
         listName="Open"
-        :items="filteredOpenItems"/>
+        :sortOptions="openListSortOptions"
+        :sortOption="openItemsSortOption"
+        :items="filteredOpenItems"
+        @sortChanged="setOpenListSort"
+      />
     </div>
 
     <div class="items-list-wrapper">
       <items-list
-        :sortOption="doneItemsSortOption"
         listName="Done"
-        :items="filteredDoneItems"/>
+        :sortOptions="doneListSortOptions"
+        :sortOption="doneItemsSortOption"
+        :items="filteredDoneItems"
+        @sortChanged="setDoneListSort"
+      />
     </div>
 
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import ItemsList from '../items-list/items-list'
-import {mapGetters} from 'vuex'
+import * as SORT_OPTIONS from '../../../constants/sorting/sort-options'
+
 
 export default {
   components: {
@@ -55,7 +64,28 @@ export default {
         ? this.storedDoneItems.filter(item => item.text.toLowerCase().includes(this.filterContent.toLowerCase()))
         : this.storedDoneItems;
     },
-  }
+
+    openListSortOptions() {
+      return [
+        SORT_OPTIONS.RECORDS_ASC,
+        SORT_OPTIONS.RECORDS_DESC,
+        SORT_OPTIONS.CREATION_DATE_ASC,
+        SORT_OPTIONS.CREATION_DATE_DESC
+      ];
+    },
+
+    doneListSortOptions() {
+      return Object.values(SORT_OPTIONS);
+    },
+
+  },
+
+  methods: {
+    ...mapActions('ItemsModule', [
+      'setOpenListSort',
+      'setDoneListSort',
+    ]),
+  },
 
 }
 </script>

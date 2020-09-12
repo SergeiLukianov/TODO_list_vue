@@ -1,25 +1,49 @@
 <template>
-  <select @change="log">
-    <option disabled>Select..</option>
-    <option v-for="item in items" :key="item.value" :value="item.value">
-      {{item.name}}
+  <select @change="onChange">
+    <option
+      disabled
+      :selected="selectedOption !== null"
+    >Select..</option>
+    <option
+      v-for="option in options"
+      :key="option"
+      :value="option"
+      :selected="isSelectedOption(option)"
+    >
+      {{ getName(option) }}
     </option>
   </select>
 </template>
 
 <script>
+import SORT_NAMES from '../../constants/sorting/sort-options-names';
+
+
 export default {
   props: {
-    items: {
+    options: {
       type: Array,
       default: () => []
+    },
+
+    selectedOption: {
+      type: String,
+      default: null,
     }
   },
 
   methods: {
-    log (e) {
-      // console.log(e.target.value)
-    }
+    onChange (e) {
+      this.$emit('change', e)
+    },
+
+    isSelectedOption(option) {
+      return this.selectedOption === option;
+    },
+
+    getName(option) {
+      return SORT_NAMES[option];
+    },
   }
 }
 </script>

@@ -26,7 +26,15 @@ const mutations = {
     if (done) {
       item.dueDate = new Date();
     }
-  }
+  },
+
+  [types.STORE_OPEN_LIST_SORT] (state, value) {
+    state.openItemsSortOption = value;
+  },
+
+  [types.STORE_DONE_LIST_SORT] (state, value) {
+    state.doneItemsSortOption = value;
+  },
 }
 
 export default mutations

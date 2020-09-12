@@ -21,7 +21,19 @@ const actions = {
     commit(types.UPDATE_STATUS, data);
 
     dispatch('updateItemsLocalStorage')
-  }
+  },
+
+  setOpenListSort({ commit }, value) {
+    commit(types.STORE_OPEN_LIST_SORT, value)
+
+    localStorage.setItem('openItemsSortOption', value)
+  },
+
+  setDoneListSort({ commit }, value) {
+    commit(types.STORE_DONE_LIST_SORT, value)
+
+    localStorage.setItem('doneItemsSortOption', value)
+  },
 
 }
 
