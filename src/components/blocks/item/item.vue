@@ -43,11 +43,11 @@ export default {
   },
 
   methods: {
-    ...mapActions('ItemsModule', [
-      ...{
-          removeItemFromStore: 'removeItem'
-      },
-      'updateStatus',]
+    ...mapActions('ItemsModule',
+      {
+          removeItemFromStore: 'removeItem',
+          updateStatus: 'updateStatus',
+      }
     ),
 
     removeItem() {
