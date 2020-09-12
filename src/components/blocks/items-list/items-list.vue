@@ -1,12 +1,15 @@
 <template>
-  <div class="items-list">
-    <div class="item-element"
+  <div
+    class="items-list"
+  >
+    <template
       v-for="item in filteredItems"
-      :key="item.id">
+    >
       <item
+        :key="item.id"
         :item="item">
       </item>
-    </div>
+    </template>
 
     <div class="align-right space-above">
       <span

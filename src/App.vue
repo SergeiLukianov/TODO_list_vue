@@ -33,7 +33,7 @@ export default {
 
   methods: {
     updateSearchValue(value) {
-      this.searchValue = value;
+      this.searchValue = value.trim();
     }
   }
 }

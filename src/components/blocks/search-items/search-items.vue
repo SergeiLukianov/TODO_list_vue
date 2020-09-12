@@ -6,7 +6,7 @@
         placeholder="Search..."
         :value="value"
         @input="searchItems"
-        @esc="clearValue"
+        @esc="searchItems('')"
       />
 
       <img
@@ -30,11 +30,7 @@ export default {
   methods: {
     searchItems (val) {
       this.value = val;
-      this.$emit('searchValueChanged', val);
-    },
-
-    clearValue() {
-      this.value = '';
+      this.$emit('searchValueChanged', this.value);
     },
 
   }

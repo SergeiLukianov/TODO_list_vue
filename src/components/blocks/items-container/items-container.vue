@@ -4,14 +4,14 @@
       <items-list
         :sortOption="openItemsSortOption"
         listName="Open"
-        :items="openItems"/>
+        :items="filteredOpenItems"/>
     </div>
 
     <div class="items-list-wrapper">
       <items-list
         :sortOption="doneItemsSortOption"
         listName="Done"
-        :items="doneItems"/>
+        :items="filteredDoneItems"/>
     </div>
 
   </div>
@@ -35,11 +35,26 @@ export default {
 
   computed: {
     ...mapGetters('ItemsModule', [
-      'openItems',
-      'doneItems',
       'openItemsSortOption',
       'doneItemsSortOption',
     ]),
+
+    ...mapGetters('ItemsModule', {
+      storedOpenItems: 'openItems',
+      storedDoneItems: 'doneItems',
+    }),
+
+    filteredOpenItems() {
+      return Boolean(this.filterContent)
+        ? this.storedOpenItems.filter(item => item.text.toLowerCase().includes(this.filterContent.toLowerCase()))
+        : this.storedOpenItems;
+    },
+
+    filteredDoneItems() {
+      return Boolean(this.filterContent)
+        ? this.storedDoneItems.filter(item => item.text.toLowerCase().includes(this.filterContent.toLowerCase()))
+        : this.storedDoneItems;
+    },
   }
 
 }
