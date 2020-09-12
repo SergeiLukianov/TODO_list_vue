@@ -17,6 +17,12 @@ const actions = {
     dispatch('updateItemsLocalStorage')
   },
 
+  updateStatus({ commit, dispatch }, data) {
+    commit(types.UPDATE_STATUS, data);
+
+    dispatch('updateItemsLocalStorage')
+  }
+
 }
 
 export default actions
