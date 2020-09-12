@@ -2,11 +2,15 @@
   <div>
     <div class="items-list-wrapper">
       <items-list
+        :sortOption="openItemsSortOption"
+        listName="Open"
         :items="openItems"/>
     </div>
 
     <div class="items-list-wrapper">
       <items-list
+        :sortOption="doneItemsSortOption"
+        listName="Done"
         :items="doneItems"/>
     </div>
 
@@ -42,5 +46,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .items-list-wrapper {
+    margin: 20px;
+  }
 </style>

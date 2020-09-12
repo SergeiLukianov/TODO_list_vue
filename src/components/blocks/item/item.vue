@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="item">
     <input
       type="checkbox"
       :checked="isItemDone"
@@ -43,25 +43,32 @@ export default {
   },
 
   methods: {
-    ...mapActions('ItemsModule', {
-      removeItemFromStore: 'removeItem'
-    }),
+    ...mapActions('ItemsModule', [
+      ...{
+          removeItemFromStore: 'removeItem'
+      },
+      'updateStatus',]
+    ),
 
     removeItem() {
       this.removeItemFromStore({ id:this.item.id, doneItem: this.isItemDone})
     },
 
     changeDoneStatus(e) {
-      console.log(e.target.checked)
+      this.updateStatus( { id: this.item.id, done: e.target.checked })
     }
   },
 }
 </script>
 
 <style scoped>
+  .item {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .remove_item_btn {
-    margin: 3px;
-    size: 15px;
     background-color: cornflowerblue;
   }
 </style>
