@@ -1,5 +1,5 @@
 import * as types from './mutationTypes'
-import * as STATUSES from '../../../constants/itemStatuses'
+import { OPEN_STATUS, DONE_STATUS } from '../../../constants/itemStatuses'
 
 const mutations = {
   [types.CREATE_ITEM] (state, text) {
@@ -7,21 +7,16 @@ const mutations = {
       id: new Date().valueOf(),
       text,
       creationDate: new Date(),
-      status: STATUSES.openStatus,
+      status: OPEN_STATUS,
       dueDate: null
     }
 
-    state.openItems.push(newItem)
+    state.items.push(newItem)
   },
 
-  [types.REMOVE_ITEM] (state, {id, doneItem}) {
-    if (doneItem) {
-      const index = state.doneItems.findIndex(item => item.id === id);
-      state.doneItems.splice(index, 1);
-    } else {
-      const index = state.openItems.findIndex(item => item.id === id);
-      state.openItems.splice(index, 1);
-    }
+  [types.REMOVE_ITEM] (state, { id }) {
+      const index = state.items.findIndex(item => item.id === id);
+      state.items.splice(index, 1);
   }
 }
 

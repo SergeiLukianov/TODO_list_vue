@@ -4,26 +4,19 @@ const actions = {
   createNewItem({ commit, dispatch }, text) {
     commit(types.CREATE_ITEM, text);
 
-    dispatch('updateOpenItemsLocalStorage')
+    dispatch('updateItemsLocalStorage')
   },
 
-  updateOpenItemsLocalStorage({ state }) {
-    localStorage.setItem('openItems', JSON.stringify(state.openItems))
+  updateItemsLocalStorage({ state }) {
+    localStorage.setItem('items', JSON.stringify(state.items))
   },
 
   removeItem({ commit, dispatch }, data) {
     commit(types.REMOVE_ITEM, data);
 
-    if (data.doneItem) {
-      dispatch('updateDoneItemsLocalStorage')
-    } else {
-      dispatch('updateOpenItemsLocalStorage')
-    }
+    dispatch('updateItemsLocalStorage')
   },
 
-  updateDoneItemsLocalStorage({ state }) {
-    localStorage.setItem('doneItems', JSON.stringify(state.openItems))
-  },
 }
 
 export default actions

@@ -28,6 +28,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+  /*.items-list {*/
+  /*  border: 1px solid #e3e2e2;*/
+  /*  border-radius: 5px/10px;*/
+  /*}*/
 </style>

@@ -30,7 +30,7 @@ export default {
 
   computed: {
     isItemDone() {
-      return this.item.status === STATUSES.doneStatus;
+      return this.item.status === STATUSES.DONE_STATUS;
     },
 
     formattedCreationDate() {

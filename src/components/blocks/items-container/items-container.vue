@@ -6,8 +6,8 @@
     </div>
 
     <div class="items-list-wrapper">
-<!--      <items-list-->
-<!--        :items="doneItems"/>-->
+      <items-list
+        :items="doneItems"/>
     </div>
 
   </div>
