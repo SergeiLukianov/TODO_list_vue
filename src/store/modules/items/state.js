@@ -1,15 +1,12 @@
-const savedOpenItemsString = localStorage.getItem('openItems');
-const savedDoneItemsString = localStorage.getItem('doneItems');
+const itemsString = localStorage.getItem('items');
 
-const openItems = savedOpenItemsString ? JSON.parse(savedOpenItemsString) : [];
-const doneItems = savedOpenItemsString ? JSON.parse(savedDoneItemsString) : [];
+const items = itemsString ? JSON.parse(itemsString) : [];
 
 const openItemsSortOption = localStorage.getItem('openItemsSortOption') || 'recordsAsc';
 const doneItemsSortOption = localStorage.getItem('doneItemsSortOption') || 'recordsAsc';
 
 const state = {
-  openItems: openItems,
-  doneItems: doneItems,
+  items,
   openItemsSortOption: openItemsSortOption,
   doneItemsSortOption: doneItemsSortOption,
 }

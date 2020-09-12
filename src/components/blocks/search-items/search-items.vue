@@ -34,7 +34,6 @@ export default {
     },
 
     clearValue() {
-      console.log(this.value)
       this.value = '';
     },
 
