@@ -34,6 +34,10 @@ const mutations = {
   [types.STORE_DONE_LIST_SORT] (state, value) {
     state.doneItemsSortOption = value;
   },
+
+  [types.UPDATE_TEXT] (state, { id, text }) {
+    state.items.find(item => item.id === id).text = text
+  },
 }
 
 export default mutations

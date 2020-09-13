@@ -1,24 +1,54 @@
 <template>
-  <div class="item">
-    <input
-      type="checkbox"
-      :checked="isItemDone"
-      @change="changeDoneStatus"
+  <div
+    class="item"
+    @mouseenter="activate"
+    @mouseleave="deactivate"
+  >
+    <input class="size-1"
+           type="checkbox"
+           :checked="isItemDone"
+           @change="changeDoneStatus"
     >
-    <div>{{item.text}}</div>
-    <div class="dates-container">
-      <div>{{formattedCreationDate}}</div>
-      <div v-if="isItemDone">{{formattedDueDate}}</div>
+
+    <div class="size-5"
+         v-if="editMode"
+    >
+      <textarea
+        v-model="newContent"
+        ref="contentEditor"
+        @keydown.esc="confirmEdit"
+        @blur="confirmEdit"
+      />
     </div>
+    <div class="size-5"
+         v-else
+         @dblclick="editItem"
+    >{{ item.text }}
+    </div>
+
+    <div class="dates-container">
+      <div class="align-end"
+      >{{ formattedCreationDate }}</div>
+      <div class="align-end"
+        v-if="isItemDone"
+      >{{ formattedDueDate }}
+      </div>
+    </div>
+
     <div class="remove_item_btn"
-         @click="removeItem">sad</div>
+         v-show="active"
+         @click="removeItem">
+      <img
+        src="../../../assets/icons/icons-bin.svg"
+        alt="Remove"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import * as STATUSES from '../../../constants/itemStatuses'
-import { mapActions } from 'vuex'
-
+import {mapActions} from 'vuex'
 
 export default {
   props: {
@@ -28,47 +58,104 @@ export default {
     }
   },
 
+  data () {
+    return {
+      active: false,
+      editMode: false,
+      newContent: this.item.text,
+    }
+  },
+
   computed: {
-    isItemDone() {
-      return this.item.status === STATUSES.DONE_STATUS;
+    isItemDone () {
+      return this.item.status === STATUSES.DONE_STATUS
     },
 
-    formattedCreationDate() {
-      return this.item.creationDate;
+    formattedCreationDate () {
+      const date = new Date(this.item.id)
+      return date.toLocaleTimeString('en-US')
     },
 
-    formattedDueDate() {
-      return this.item.dueDate;
+    formattedDueDate () {
+      const date = new Date(this.item.dueDate)
+      return date.toLocaleTimeString('en-US')
     },
   },
 
   methods: {
     ...mapActions('ItemsModule',
       {
-          removeItemFromStore: 'removeItem',
-          updateStatus: 'updateStatus',
+        removeItemFromStore: 'removeItem',
+        updateStatus: 'updateStatus',
+        updateText: 'updateText',
       }
     ),
 
     removeItem() {
-      this.removeItemFromStore({ id:this.item.id, doneItem: this.isItemDone})
+      this.removeItemFromStore({ id: this.item.id, doneItem: this.isItemDone })
     },
 
     changeDoneStatus(e) {
-      this.updateStatus( { id: this.item.id, done: e.target.checked })
-    }
+      this.updateStatus({ id: this.item.id, done: e.target.checked})
+    },
+
+    activate() {
+      this.active = true
+    },
+
+    deactivate() {
+      this.active = false
+    },
+
+    editItem() {
+      this.editMode = true
+    },
+
+    cancelEdit() {
+      this.editMode = false
+    },
+
+    confirmEdit() {
+      this.updateText({
+        id: this.item.id,
+        text: this.newContent,
+      })
+      this.editMode = false
+    },
   },
 }
 </script>
 
 <style scoped>
-  .item {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
+.item {
+  padding: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #e3e2e2;
+  border-radius: 5px;
+}
 
-  .remove_item_btn {
-    background-color: cornflowerblue;
-  }
+.remove_item_btn {
+  background-color: cornflowerblue;
+  margin-left: 7px;
+}
+
+.size-1 {
+  flex-grow: 1;
+}
+
+.size-2 {
+  flex-grow: 2;
+}
+
+.size-5 {
+  flex-grow: 5;
+}
+
+.align-end {
+  text-align: end;
+}
+
 </style>
