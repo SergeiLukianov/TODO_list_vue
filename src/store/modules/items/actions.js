@@ -17,6 +17,12 @@ const actions = {
     dispatch('updateItemsLocalStorage');
   },
 
+  removeItems({ commit, dispatch }, ids) {
+    commit(types.REMOVE_ITEMS_BY_ID, ids)
+
+    dispatch('updateItemsLocalStorage');
+  },
+
   updateStatus({ commit, dispatch }, data) {
     commit(types.UPDATE_STATUS, data);
 

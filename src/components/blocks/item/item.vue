@@ -86,10 +86,13 @@ export default {
     ...mapActions('ItemsModule',
       {
         removeItemFromStore: 'removeItem',
-        updateStatus: 'updateStatus',
-        updateText: 'updateText',
       }
     ),
+
+    ...mapActions('ItemsModule', [
+      'updateStatus',
+      'updateText',
+    ]),
 
     removeItem() {
       this.removeItemFromStore({ id: this.item.id, doneItem: this.isItemDone })
@@ -138,16 +141,12 @@ export default {
 }
 
 .remove_item_btn {
-  background-color: cornflowerblue;
+  border-left: 2px solid lightgray;
   margin-left: 7px;
 }
 
 .size-1 {
   flex-grow: 1;
-}
-
-.size-2 {
-  flex-grow: 2;
 }
 
 .size-5 {

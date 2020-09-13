@@ -18,6 +18,14 @@ const mutations = {
     state.items.splice(index, 1);
   },
 
+  [types.REMOVE_ITEMS_BY_ID] (state, ids) {
+    for (let id of ids) {
+      const index = state.items.findIndex(item => item.id === id);
+      state.items.splice(index, 1);
+    }
+  },
+
+
   [types.UPDATE_STATUS] (state, { id, done }) {
     const item = state.items.find(item => item.id === id);
 

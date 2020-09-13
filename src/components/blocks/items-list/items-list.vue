@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import Item from '../item/item'
 import BaseDropdown from '../../base/BaseDropdown'
 
@@ -72,8 +74,13 @@ export default {
   },
 
   methods: {
+    ...mapActions('ItemsModule', [
+      'removeItems'
+    ]),
+
     clearList () {
-      console.log('clear requested', this.items.map(item => item.id))
+      // console.log(this.items.map(item => item.id));
+      this.removeItems(this.items.map(item => item.id));
     },
 
     onSortChange(e) {
@@ -103,6 +110,7 @@ export default {
   .list-header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 30px;
   }
 
 </style>
