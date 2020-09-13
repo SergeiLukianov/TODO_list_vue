@@ -5,7 +5,7 @@
         listName="Open"
         :sortOptions="openListSortOptions"
         :sortOption="openItemsSortOption"
-        :items="filteredOpenItems"
+        :items="openItemsList"
         @sortChanged="setOpenListSort"
       />
     </div>
@@ -15,7 +15,7 @@
         listName="Done"
         :sortOptions="doneListSortOptions"
         :sortOption="doneItemsSortOption"
-        :items="filteredDoneItems"
+        :items="doneItemsList"
         @sortChanged="setDoneListSort"
       />
     </div>
@@ -28,6 +28,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 import ItemsList from '../items-list/items-list'
 import * as SORT_OPTIONS from '../../../constants/sorting/sort-options'
+import SORT_FUNCTIONS from '../../../constants/sorting/sort-functions'
 
 
 export default {
@@ -53,16 +54,20 @@ export default {
       storedDoneItems: 'doneItems',
     }),
 
-    filteredOpenItems() {
-      return Boolean(this.filterContent)
+    openItemsList() {
+      const filteredItems =  Boolean(this.filterContent)
         ? this.storedOpenItems.filter(item => item.text.toLowerCase().includes(this.filterContent.toLowerCase()))
         : this.storedOpenItems;
+
+      return filteredItems.sort(SORT_FUNCTIONS[this.openItemsSortOption]);
     },
 
-    filteredDoneItems() {
-      return Boolean(this.filterContent)
+    doneItemsList() {
+      const filteredItems = Boolean(this.filterContent)
         ? this.storedDoneItems.filter(item => item.text.toLowerCase().includes(this.filterContent.toLowerCase()))
         : this.storedDoneItems;
+
+      return filteredItems.sort(SORT_FUNCTIONS[this.doneItemsSortOption]);
     },
 
     openListSortOptions() {
