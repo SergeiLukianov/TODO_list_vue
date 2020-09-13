@@ -6,7 +6,6 @@ const mutations = {
     const newItem = {
       id: new Date().valueOf(),
       text,
-      creationDate: new Date(),
       status: OPEN_STATUS,
       dueDate: null
     }
@@ -24,7 +23,7 @@ const mutations = {
 
     item.status = done ? DONE_STATUS : OPEN_STATUS;
     if (done) {
-      item.dueDate = new Date();
+      item.dueDate = new Date().valueOf();
     }
   },
 
