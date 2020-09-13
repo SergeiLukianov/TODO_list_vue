@@ -80,7 +80,12 @@ export default {
     },
 
     doneListSortOptions() {
-      return Object.values(SORT_OPTIONS);
+      return [
+        SORT_OPTIONS.RECORDS_ASC,
+        SORT_OPTIONS.RECORDS_DESC,
+        SORT_OPTIONS.DUE_DATE_ASC,
+        SORT_OPTIONS.DUE_DATE_DESC,
+      ];
     },
 
   },
