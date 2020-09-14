@@ -22,11 +22,11 @@
       </item>
     </template>
 
-    <div class="align-right space-above">
-      <span
-        @click="clearList"
-      ><u>Clear "{{ listName }}" list</u>
-      </span>
+    <div class="remove-btn align-right space-above">
+      <a
+        href="#"
+        @click.prevent="clearList"
+      >Clear "{{ listName }}" list</a>
     </div>
   </div>
 </template>
@@ -79,7 +79,6 @@ export default {
     ]),
 
     clearList () {
-      // console.log(this.items.map(item => item.id));
       this.removeItems(this.items.map(item => item.id));
     },
 
@@ -113,4 +112,10 @@ export default {
     margin-bottom: 30px;
   }
 
+</style>
+
+<style scoped>
+  .remove-btn a {
+    color: #000000;
+  }
 </style>
