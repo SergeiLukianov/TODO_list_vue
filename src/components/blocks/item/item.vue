@@ -17,27 +17,34 @@
         v-model="newContent"
         ref="contentEditor"
         @keydown.esc="confirmEdit"
-        @blur="confirmEdit"
-      />
+        @blur="confirmEdit"/>
     </div>
     <div class="size-5"
          v-else
          @dblclick="editItem"
-    >{{ item.text }}
+    >
+      {{ item.text }}
     </div>
 
     <div class="dates-container">
-      <div class="align-end"
-      >{{ formattedCreationDate }}</div>
+      <div class="align-end">
+        {{ formattedCreationDate }}
+      </div>
+
       <div class="align-end"
         v-if="isItemDone"
-      >{{ formattedDueDate }}
+      >
+        {{ formattedDueDate }}
       </div>
     </div>
 
-    <div class="remove_item_btn"
-         v-show="active"
-         @click="removeItem">
+    <div :class="[
+      'remove_item_btn',
+      {
+        [$style.visibilityHidden] : !active
+      }]"
+         @click="removeItem"
+    >
       <img
         src="../../../assets/icons/icons-bin.svg"
         alt="Remove"
@@ -130,31 +137,37 @@ export default {
 </script>
 
 <style scoped>
-.item {
-  padding: 5px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  border: 1px solid #e3e2e2;
-  border-radius: 5px;
-}
+  .item {
+    padding: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid #e3e2e2;
+    border-radius: 5px;
+  }
 
-.remove_item_btn {
-  border-left: 2px solid lightgray;
-  margin-left: 7px;
-}
+  .remove_item_btn {
+    border-left: 2px solid lightgray;
+    margin-left: 7px;
+  }
 
-.size-1 {
-  flex-grow: 1;
-}
+  .size-1 {
+    flex-grow: 1;
+  }
 
-.size-5 {
-  flex-grow: 5;
-}
+  .size-5 {
+    flex-grow: 5;
+  }
 
-.align-end {
-  text-align: end;
-}
+  .align-end {
+    text-align: end;
+  }
 
+</style>
+
+<style module>
+  .visibilityHidden {
+    visibility: hidden;
+  }
 </style>
