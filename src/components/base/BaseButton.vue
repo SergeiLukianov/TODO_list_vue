@@ -1,18 +1,24 @@
 <template>
   <div>
-    <button @click="onClick">{{caption}}</button>
+    <button
+      :class="customStyleClass"
+      @click="onClick">{{caption}}</button>
   </div>
 </template>
 
 <script>
 export default {
-  // inheritAttrs: false,
 
   props: {
     caption: {
       type: String,
       default: 'Submit'
-    }
+    },
+
+    customStyleClass: {
+      type:String,
+      default: '',
+    },
   },
 
   methods: {
@@ -22,7 +28,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

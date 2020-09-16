@@ -1,12 +1,15 @@
 <template>
-  <div>
+  <div :class="$style.createItem">
     <base-input
+      :class="$style.customInput"
+      :customStyleClass="$style.customInput"
       placeholder="New task..."
       :value="value"
       @input="updateValue"
       @enter="createItem"
       @esc="clearValue"></base-input>
     <base-button
+      :customStyleClass="$style.addItemButton"
       caption="ADD"
       @click="createItem"></base-button>
   </div>
@@ -52,6 +55,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style module>
+  .createItem {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .customInput {
+    border: none;
+    background-color: transparent;
+    outline: none;
+
+    width: 70%;
+  }
+
+  input.customInput {
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .addItemButton {
+    border: none;
+    background-color: white;
+    width: 80px;
+    box-shadow: 3px 3px 7px 1px lightgray;
+  }
 
 </style>

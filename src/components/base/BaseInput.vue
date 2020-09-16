@@ -1,6 +1,7 @@
 <template>
   <div>
     <input
+      :class="customStyleClass"
       :placeholder="placeholder"
       :value="value"
       @keydown.enter="onEnter"
@@ -23,6 +24,11 @@ export default {
       type: String,
       default: '',
     },
+
+    customStyleClass: {
+      type: String,
+      default: '',
+    }
   },
 
   methods: {
@@ -41,7 +47,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
