@@ -1,8 +1,9 @@
 <template>
   <div class="footer-container">
-    <span class="block">Todo List</span>
+    <div class="block">Todo List</div>
     <div class="input block">
       <base-input
+        :customStyleClass="$style.searchItemInputWrapper"
         placeholder="Search..."
         :value="value"
         @input="searchItems"
@@ -38,21 +39,43 @@ export default {
 </script>
 
 <style scoped>
-.footer-container {
-  display: flex;
-  align-content: center;
-  justify-content: flex-end;
-  background-color: #2581e3;
-}
+  .footer-container {
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+    background-color: #2581e3;
 
-.input {
-  margin-left: 150px;
-}
+    margin-bottom: 50px;
+  }
+
+  .input {
+    margin-left: 150px;
+  }
 
 
-div.block {
-  display: flex;
-  margin: 10px;
-}
+  div.block {
+    display: flex;
+    margin: 10px;
+  }
 
+</style>
+
+<style module>
+
+  .searchItemInputWrapper {
+    width: 250px;
+  }
+
+  input.searchItemInputWrapper {
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    background-color: transparent;
+    outline: none;
+
+    width: 100%;
+  }
+
+  input.searchItemInputWrapper::placeholder {
+    color: #ffffff;
+  }
 </style>
