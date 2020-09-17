@@ -153,18 +153,19 @@ export default {
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+
     border: 1px solid #e3e2e2;
     border-radius: 5px;
 
     box-shadow: 2px 1px lightgray;
-
   }
 
   .remove_item_btn {
     border-left: 2px solid lightgray;
     margin-left: 7px;
 
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -188,6 +189,8 @@ export default {
 
   .itemContent {
     overflow-wrap: anywhere;
+    width: 700px;
+    height: 100%;
   }
 
 </style>
