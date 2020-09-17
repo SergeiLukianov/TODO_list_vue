@@ -1,7 +1,7 @@
 <template>
   <div class="footer-container">
     <div class="block">Todo List</div>
-    <div class="input block">
+    <div class="block">
       <base-input
         :customStyleClass="$style.searchItemInputWrapper"
         placeholder="Search..."
@@ -48,11 +48,6 @@ export default {
     margin-bottom: 50px;
   }
 
-  .input {
-    margin-left: 150px;
-  }
-
-
   div.block {
     display: flex;
     margin: 10px;
@@ -62,17 +57,14 @@ export default {
 
 <style module>
 
-  .searchItemInputWrapper {
-    width: 250px;
-  }
-
   input.searchItemInputWrapper {
     border: none;
     border-bottom: 1px solid #ffffff;
     background-color: transparent;
     outline: none;
 
-    width: 100%;
+    width: 300px;
+    margin-right: 15px;
   }
 
   input.searchItemInputWrapper::placeholder {

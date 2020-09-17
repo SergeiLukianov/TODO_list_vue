@@ -4,13 +4,15 @@
     @mouseenter="activate"
     @mouseleave="deactivate"
   >
-    <input class="size-1"
-           type="checkbox"
-           :checked="isItemDone"
-           @change="changeDoneStatus"
-    >
+    <div>
+      <input
+        type="checkbox"
+        :checked="isItemDone"
+        @change="changeDoneStatus"
+      >
+    </div>
 
-    <div class="size-5"
+    <div class="itemContent"
          v-if="editMode"
     >
       <textarea
@@ -19,33 +21,34 @@
         @keydown.esc="confirmEdit"
         @blur="confirmEdit"/>
     </div>
-    <div class="size-5"
-         v-else
-         @dblclick="editItem"
-    >
-      {{ item.text }}
+    <div
+      class="itemContent"
+      v-else
+      @dblclick="editItem"
+    ><span>{{ item.text }}</span>
     </div>
 
     <div class="dates-container">
-      <div class="align-end">
+      <div
+        class="align-end center text-gray"
+      >
         {{ formattedCreationDate }}
       </div>
 
-      <div class="align-end"
+      <div
+        class="align-end center text-black"
         v-if="isItemDone"
       >
         {{ formattedDueDate }}
       </div>
     </div>
 
-    <div :class="[
-      'remove_item_btn',
-      {
-        [$style.visibilityHidden] : !active
-      }]"
-         @click="removeItem"
+    <div
+      class="remove_item_btn"
+      @click="removeItem"
     >
       <img
+        v-if="active"
         src="../../../assets/icons/icons-bin.svg"
         alt="Remove"
       />
@@ -87,6 +90,14 @@ export default {
       const date = new Date(this.item.dueDate)
       return date.toLocaleTimeString('en-US')
     },
+  },
+
+  updated () {
+    const contentTextArea = this.$refs.contentEditor
+
+    if (contentTextArea) {
+      contentTextArea.focus()
+    }
   },
 
   methods: {
@@ -145,29 +156,48 @@ export default {
     align-items: flex-start;
     border: 1px solid #e3e2e2;
     border-radius: 5px;
+
+    box-shadow: 2px 1px lightgray;
+
   }
 
   .remove_item_btn {
     border-left: 2px solid lightgray;
     margin-left: 7px;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 40px;
   }
 
-  .size-1 {
-    flex-grow: 1;
-  }
-
-  .size-5 {
-    flex-grow: 5;
-  }
 
   .align-end {
     text-align: end;
   }
 
+  textarea {
+    width: 100%;
+    height: 150px;
+
+    resize: none;
+    outline: none;
+    border-radius: 5px;
+  }
+
+  .itemContent {
+    overflow-wrap: anywhere;
+  }
+
 </style>
 
-<style module>
-  .visibilityHidden {
-    visibility: hidden;
+<style>
+  .text-black {
+    color: black;
+  }
+
+  .text-gray {
+    color: gray;
   }
 </style>
