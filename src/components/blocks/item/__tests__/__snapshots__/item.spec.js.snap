@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item renders done item 1`] = `
+<div class="item">
+    <div><input type="checkbox"></div>
+    <div class="itemContent"><span>write test</span></div>
+    <div class="dates-container">
+        <div class="align-end center text-gray">
+            3:55:18 PM
+        </div>
+        <div class="align-end center text-black">
+            3:55:19 PM
+        </div>
+    </div>
+    <div class="remove_item_btn">
+        <!---->
+    </div>
+</div>
+`;
+
+exports[`Item renders open item 1`] = `
+<div class="item">
+    <div><input type="checkbox"></div>
+    <div class="itemContent"><span>write test</span></div>
+    <div class="dates-container">
+        <div class="align-end center text-gray">
+            3:55:18 PM
+        </div>
+        <!---->
+    </div>
+    <div class="remove_item_btn">
+        <!---->
+    </div>
+</div>
+`;
