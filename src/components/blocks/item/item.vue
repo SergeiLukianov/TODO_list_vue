@@ -165,12 +165,13 @@ export default {
     border-left: 2px solid lightgray;
     margin-left: 7px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 30px;
+    height: 100%;
+  }
 
-    width: 25px;
-    height: 40px;
+  .remove_item_btn img {
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
 
