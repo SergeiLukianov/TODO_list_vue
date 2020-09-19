@@ -1,6 +1,11 @@
+import Vuex from 'vuex'
+
 import Item from '../item.vue'
 import {createLocalVue, shallowMount} from '@vue/test-utils'
 import * as STATUSES from '../../../../constants/itemStatuses'
+import {mockModules} from '../../../../constants/test-helpers'
+
+import ItemsModule from '../../../../store/modules/items'
 
 const doneItem = {
   id: 1600433718398,
@@ -15,31 +20,41 @@ const openItem = {
   text: 'write test',
 }
 
-const renderWrapper = (component, options = {}) => {
-  if (!Boolean(options.localVue)) {
-    options.localVue = createLocalVue()
-  }
-
-  return shallowMount(Item, {
-    ...options,
-  })
-}
-
 describe('Item', () => {
+
+  let wrapper;
+  let store;
+  let mockedModules;
+
+  const renderWrapper = (options = {}) => {
+    let localVue = createLocalVue()
+
+    mockedModules = mockModules({ItemsModule})
+
+    store = new Vuex.Store({
+      modules: mockedModules,
+    })
+
+    wrapper = shallowMount(Item, {
+      ...options,
+      store,
+      localVue,
+    })
+  };
+
+  afterEach(() => {
+    wrapper.destroy()
+  });
 
   it('renders open item', () => {
     const options = {
       propsData: {
         item: openItem,
       },
-      data () {
-        return {
-          active: false,
-          editMode: false,
-        }
-      },
     }
-    expect(renderWrapper(Item, options).html()).toMatchSnapshot()
+    renderWrapper(options)
+
+    expect(wrapper.html()).toMatchSnapshot()
   });
 
   it('renders done item', () => {
@@ -47,14 +62,10 @@ describe('Item', () => {
       propsData: {
         item: doneItem,
       },
-      data () {
-        return {
-          active: false,
-          editMode: false,
-        }
-      },
     }
-    expect(renderWrapper(Item, options).html()).toMatchSnapshot()
+    renderWrapper(options)
+
+    expect(wrapper.html()).toMatchSnapshot()
   });
 
   it('checkbox is unchecked for open item', () => {
@@ -63,7 +74,7 @@ describe('Item', () => {
         item: openItem,
       }
     }
-    const wrapper = renderWrapper(Item, options)
+    renderWrapper(options)
 
     expect(wrapper.find('.item input[type="checkbox"]').element.checked).toBe(false)
   });
@@ -74,7 +85,7 @@ describe('Item', () => {
         item: doneItem,
       }
     }
-    const wrapper = renderWrapper(Item, options)
+    renderWrapper(options)
 
     expect(wrapper.find('.item input[type="checkbox"]').element.checked).toBe(true)
   });
@@ -89,8 +100,65 @@ describe('Item', () => {
         item: item,
       }
     }
-    const wrapper = renderWrapper(Item, options)
+    renderWrapper(options)
 
     expect(wrapper.vm.formattedCreationDate).toBe('7:00:00 PM')
+  });
+
+  it('should remove item on click remove item icon', () => {
+    const options = {
+      propsData: {
+        item: openItem,
+      },
+    }
+    renderWrapper(options)
+
+    wrapper.vm.removeItem()
+
+    expect(mockedModules.ItemsModule.actions.removeItem.mock.calls[0][1]).toEqual({id: 1600433718398})
+  });
+
+  it('should change status on checking checkbox', () => {
+    const options = {
+      propsData: {
+        item: openItem,
+      },
+    }
+    renderWrapper(options)
+
+    let initialCheckboxState = wrapper.find('input[type="checkbox"]').element.checked
+    wrapper.vm.changeDoneStatus({
+      target: {
+        checked: !initialCheckboxState,
+      }
+    })
+
+    expect(mockedModules.ItemsModule.actions.updateStatus.mock.calls[0][1])
+      .toEqual({
+        id: openItem.id,
+        done: !initialCheckboxState,
+      })
+  });
+
+  it('should save changes after changes confirmed', () => {
+    const options = {
+      propsData: {
+        item: openItem,
+      },
+    }
+    renderWrapper(options)
+
+    wrapper.vm.editItem()
+    expect(wrapper.vm.editMode).toBe(true)
+
+    wrapper.vm.confirmEdit()
+    expect(mockedModules.ItemsModule.actions.updateText.mock.calls[0][1])
+      .toEqual({
+        id: 1600433718398,
+        text: "write test",
+      })
+
+    //closes edit mode after edit confirmation
+    expect(wrapper.vm.editMode).toBe(false)
   });
 })
