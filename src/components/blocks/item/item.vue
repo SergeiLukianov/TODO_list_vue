@@ -113,7 +113,7 @@ export default {
     ]),
 
     removeItem() {
-      this.removeItemFromStore({ id: this.item.id, doneItem: this.isItemDone })
+      this.removeItemFromStore({ id: this.item.id })
     },
 
     changeDoneStatus(e) {
