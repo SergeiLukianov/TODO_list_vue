@@ -33,3 +33,13 @@ export function mockModules(modules) {
     };
   }, {});
 }
+
+export function resetModules(modules) {
+  return Object.keys(modules).reduce((resetedModules, nextModuleName) => ({
+    ...resetedModules,
+    [nextModuleName]: {
+      ...modules[nextModuleName],
+      state: JSON.parse(JSON.stringify(modules[nextModuleName].state || {})),
+    },
+  }), {});
+}
