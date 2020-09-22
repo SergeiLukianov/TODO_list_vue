@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateItem renders 1`] = `
+<div class="createItem">
+    <div class="customInput"><input placeholder="New task..." class="customInput"></div>
+    <div><button class="addItemButton">ADD</button></div>
+</div>
+`;

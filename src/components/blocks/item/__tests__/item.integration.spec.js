@@ -13,7 +13,7 @@ describe('Item - integration', () => {
   const renderWrapper = (options = {}) => {
     let localVue = createLocalVue()
 
-    let ItemsModule = {...OriginalItemsModule}
+    let ItemsModule = {...OriginalItemsModule }
     ItemsModule.state.items = TestItems
 
     store = new Vuex.Store({

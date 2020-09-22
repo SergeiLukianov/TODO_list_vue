@@ -43,3 +43,26 @@ export function resetModules(modules) {
     },
   }), {});
 }
+
+function getNamespacedKeys(obj, moduleName, isNamespaced) {
+  return Object.keys(obj).reduce((results, key) => ({
+    ...results,
+    [key]: (isNamespaced ? `${moduleName}/${key}` : key),
+  }), {});
+}
+
+export function getActionTypes(moduleConfig) {
+  const moduleName = Object.keys(moduleConfig)[0];
+  const module = moduleConfig[moduleName];
+  const isNamespaced = module.namespaced;
+
+  return getNamespacedKeys(module.actions, moduleName, isNamespaced);
+}
+
+export function getGetterTypes(moduleConfig) {
+  const moduleName = Object.keys(moduleConfig)[0];
+  const module = moduleConfig[moduleName];
+  const isNamespaced = module.namespaced;
+
+  return getNamespacedKeys(module.getters, moduleName, isNamespaced);
+}
